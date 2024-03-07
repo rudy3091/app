@@ -8,7 +8,9 @@ export class CalendarCell<T> extends Component {
 
   template() {
     return `
-      <div>${this.day.number}</div>
+      <div class="calendar-cell-container">
+        ${this.day.number}
+      </div>
     `;
   }
 }
