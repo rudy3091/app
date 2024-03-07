@@ -14,3 +14,7 @@ export function bootstrapCss(strings: TemplateStringsArray, ...values: (string |
     document.head.appendChild(styleTag);
   }
 }
+
+export interface Clonable<T> {
+  clone(): T;
+}

@@ -6,12 +6,16 @@ import { Calendar } from './Calendar/ui/Calendar.ts';
 
 export class Application extends Component {
   public kanbanBoard: KanbanBoard;
-  public calendar: Calendar;
+  public calendar: Calendar<any>;
 
   constructor(public root: Root) {
     super();
     this.kanbanBoard = new KanbanBoard(() => this.root().querySelector('.kanban-board-slot')!);
-    this.calendar = new Calendar(() => this.root().querySelector('.calendar-slot')!);
+    this.calendar = new Calendar<any>(
+      () => this.root().querySelector('.calendar-slot')!,
+      new Date().getFullYear(),
+      new Date().getMonth() + 1
+    );
     // this.children.push(this.kanbanBoard);
     this.children.push(this.calendar);
   }

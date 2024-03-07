@@ -1,4 +1,5 @@
 import { Week } from './Week';
+import { Year } from './Year';
 import { DayOfWeek } from './shared';
 
 export class Month<T> {
@@ -6,7 +7,7 @@ export class Month<T> {
 
   constructor(public readonly number: number, private isLeapYear: boolean) {}
 
-  private lastDate() {
+  public lastDate() {
     switch (this.number) {
       case 2:
         return this.isLeapYear ? 29 : 28;
@@ -20,11 +21,9 @@ export class Month<T> {
     }
   }
 
-  private getFirstDay() {
+  public getFirstDay(): DayOfWeek {
     const day = new Date(this.number + '/1/' + new Date().getFullYear()).getDay();
     switch (day) {
-      case 0:
-        return DayOfWeek.Sunday;
       case 1:
         return DayOfWeek.Monday;
       case 2:
@@ -37,6 +36,16 @@ export class Month<T> {
         return DayOfWeek.Friday;
       case 6:
         return DayOfWeek.Saturday;
+      default:
+        return DayOfWeek.Sunday;
     }
+  }
+}
+
+export class MonthService {
+  public getFormerMonth<T>(month: Month<T>, year: number) {
+    const formerMonth = month.number - 1 === 0 ? 12 : month.number - 1;
+    const formerYear = new Year<T>(month.number - 1 === 0 ? year - 1 : year);
+    return new Month<T>(formerMonth, formerYear.isLeapYear());
   }
 }
