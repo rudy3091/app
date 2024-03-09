@@ -5,6 +5,7 @@ export interface IComponent {
   children?: IComponent[];
   template(): string;
   render(): void;
+  unMount(): void;
   hydrate(): void;
   teardown(): void;
 }
@@ -24,11 +25,15 @@ export abstract class Component implements IComponent {
     this.children.forEach(child => child.hydrate());
   }
 
+  public unMount() {
+    this.children.forEach(child => child.teardown());
+    this.children.forEach(child => child.unMount());
+    this.root().innerHTML = '';
+  }
+
   public hydrate() {}
 
-  public teardown() {
-    this.children.forEach(child => child.teardown());
-  }
+  public teardown() {}
 }
 
 export interface ComponentConstructor {
