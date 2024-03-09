@@ -1,11 +1,16 @@
+import { Retrievable } from '../../shared/Retrievable';
 import { Week } from './Week';
 import { Year } from './Year';
 import { DayOfWeek } from './shared';
 
-export class Month<T> {
+export class Month<T> implements Retrievable<T[]> {
   public weeks: Week<T>[] = [];
 
   constructor(public readonly number: number, private isLeapYear: boolean) {}
+
+  public retrieve(): T[] {
+    return this.weeks.flatMap(week => week.retrieve());
+  }
 
   public lastDate() {
     switch (this.number) {

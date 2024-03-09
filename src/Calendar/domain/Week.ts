@@ -1,7 +1,8 @@
+import { Retrievable } from '../../shared/Retrievable';
 import { Day } from './Day';
 import { DayOfWeek } from './shared';
 
-export class Week<T> {
+export class Week<T> implements Retrievable<T[]> {
   public days: Day<T>[] = [];
 
   constructor(
@@ -12,6 +13,10 @@ export class Week<T> {
     public readonly formerMonthDays: number
   ) {
     this.days = this.createDays();
+  }
+
+  public retrieve(): T[] {
+    return this.days.flatMap(day => day.retrieve()).filter((data): data is T => data !== null);
   }
 
   private createDays() {
