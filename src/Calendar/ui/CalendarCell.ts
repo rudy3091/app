@@ -1,5 +1,5 @@
 import { Component, Root } from '../../Component';
-import { Modal } from '../../Modal/ui';
+import { Modal } from '../../shared/ui';
 import { bootstrapCss } from '../../shared';
 import { Day } from '../domain';
 import { EditDayDetail } from './EditDayDetail';

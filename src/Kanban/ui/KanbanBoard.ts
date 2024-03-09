@@ -2,7 +2,7 @@ import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
 import { KanbanColumn } from '.';
 import { ColumnService } from '../domain';
-import { DropArea } from '../../Draggable/ui';
+import { DropArea } from '../../shared/ui/Draggable';
 import { KanbanActionLayer } from './KanbanActionLayer';
 import { useKanbanStore } from '../application';
 import { noop } from '../../shared/util';

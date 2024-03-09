@@ -2,7 +2,7 @@ import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
 import { KanbanCard } from '.';
 import { Card, CardService, Column } from '../domain';
-import { DraggableArea } from '../../Draggable/ui';
+import { DraggableArea } from '../../shared/ui';
 import { AddCard } from './AddCard';
 import { useKanbanStore } from '../application';
 import { noop } from '../../shared/util';

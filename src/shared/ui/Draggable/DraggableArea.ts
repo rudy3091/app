@@ -1,4 +1,4 @@
-import { Component } from '../../Component';
+import { Component } from '../../../Component';
 
 export class DraggableArea extends Component {
   constructor(private readonly component: Component, private readonly onDragStart?: (ev: DragEvent) => void) {

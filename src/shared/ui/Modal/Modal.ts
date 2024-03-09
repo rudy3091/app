@@ -1,5 +1,5 @@
-import { Component, IComponent } from '../../Component';
-import { bootstrapCss } from '../../shared';
+import { Component, IComponent } from '../../../Component';
+import { bootstrapCss } from '../../../shared';
 
 export class Modal<T extends IComponent> extends Component {
   private isOpened: boolean = false;

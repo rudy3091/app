@@ -1,4 +1,4 @@
-import { Component, IComponent } from '../../Component';
+import { Component, IComponent } from '../../../Component';
 
 export class DropArea extends Component {
   constructor(
