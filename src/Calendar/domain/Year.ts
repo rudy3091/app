@@ -1,13 +1,18 @@
 import { Retrievable } from '../../shared/Retrievable';
-import { Month } from './Month';
+import { Month, MonthData } from './Month';
 
-export class Year<T> implements Retrievable<T[]> {
+export type YearData<T> = { month: number } & MonthData<T>;
+
+export class Year<T> implements Retrievable<YearData<T>[]> {
   public months: Month<T>[] = [];
 
   constructor(public readonly number: number) {}
 
-  public retrieve(): T[] {
-    return this.months.flatMap(month => month.retrieve());
+  public retrieve(): YearData<T>[] {
+    return this.months.flatMap(month => {
+      const monthData = month.retrieve();
+      return monthData.map(data => ({ ...data, month: month.number }));
+    });
   }
 
   public isLeapYear(): boolean {

@@ -24,6 +24,7 @@ export class Calendar extends Component {
     super();
     this.year = new Year(year);
     this.month = new Month(month, this.year.isLeapYear());
+    this.year.months.push(this.month);
     this.render = this.render.bind(this);
     this.alignChildren();
   }
@@ -41,7 +42,7 @@ export class Calendar extends Component {
 
   public alignChildren(): void {
     if (this.calendarStore.state.showListView) {
-      this.calendarListView.scope = this.month;
+      this.calendarListView.scope = this.year;
       this.children = [this.calendarAction, this.calendarListView];
       return;
     }

@@ -2,7 +2,9 @@ import { Retrievable } from '../../shared/Retrievable';
 import { Day } from './Day';
 import { DayOfWeek } from './shared';
 
-export class Week<T> implements Retrievable<T[]> {
+export type WeekData<T> = { day: number; data: T };
+
+export class Week<T> implements Retrievable<WeekData<T>[]> {
   public days: Day<T>[] = [];
 
   constructor(
@@ -15,8 +17,13 @@ export class Week<T> implements Retrievable<T[]> {
     this.days = this.createDays();
   }
 
-  public retrieve(): T[] {
-    return this.days.flatMap(day => day.retrieve()).filter((data): data is T => !!data);
+  public retrieve(): WeekData<T>[] {
+    return this.days
+      .flatMap(day => {
+        const dayData = day.retrieve();
+        return { data: dayData, day: day.number };
+      })
+      .filter((data): data is WeekData<T> => !!data.data);
   }
 
   private createDays() {
