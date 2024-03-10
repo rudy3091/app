@@ -68,5 +68,10 @@ bootstrapCss`
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.calendar-edit-save-button:hover {
+  background-color: #383838;
 }
 `;

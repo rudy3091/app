@@ -52,6 +52,7 @@ bootstrapCss`
   position: relative;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
+  border-radius: 0.5rem;
 }
 
 .calendar-cell-container:hover {
