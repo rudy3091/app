@@ -19,8 +19,8 @@ export abstract class Component implements IComponent {
   public alignChildren() {}
 
   public render() {
-    this.root().innerHTML = this.template();
     this.alignChildren();
+    this.root().innerHTML = this.template();
     this.children.forEach(child => child.render());
     this.children.forEach(child => child.hydrate());
   }

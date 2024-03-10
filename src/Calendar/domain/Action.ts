@@ -1,3 +1,5 @@
+import { useCalendarStore } from '../application';
+
 export interface Action {
   readonly label: string;
   do(): void;
@@ -26,7 +28,8 @@ export class GotoToday implements Action {
 
 export class ToggleListView implements Action {
   public readonly label = 'Toggle list view';
+  private calendarStore = useCalendarStore();
   public do(): void {
-    console.log('Toggle list view');
+    this.calendarStore.dispatch({ type: 'toggleListView' });
   }
 }

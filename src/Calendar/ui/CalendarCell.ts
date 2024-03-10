@@ -12,8 +12,9 @@ export class CalendarCell<T> extends Component {
     this.edit = this.edit.bind(this);
     this.editDayDetailModal = new Modal(
       'Edit Day',
-      new EditDayDetail(this.day, day => {
-        this.day = day;
+      new EditDayDetail(this.day, value => {
+        if (value === null) this.day.data = null;
+        else this.day.data = value as T;
         this.render();
         this.editDayDetailModal.close();
       })
@@ -26,7 +27,7 @@ export class CalendarCell<T> extends Component {
       this.day.isToday ? ' calendar-cell-today' : ''
     }">
         <span class="calendar-cell-date">${this.day.number}</span>
-        <span>${this.day.data === null ? '' : this.day.data.toString()}</span>
+        <span>${this.day.data === null ? '' : this.day.data}</span>
       </div>
     `;
   }

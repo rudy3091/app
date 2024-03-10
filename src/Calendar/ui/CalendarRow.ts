@@ -12,7 +12,7 @@ export class CalendarRow<T> extends Component {
   public alignChildren(): void {
     this.children = this.week.days.map(
       (day, index) =>
-        new CalendarCell(() => this.root().querySelector(`.calendar-cell-slot:nth-child(${index + 1})`)!, day)
+        new CalendarCell<T>(() => this.root().querySelector(`.calendar-cell-slot:nth-child(${index + 1})`)!, day)
     );
   }
 

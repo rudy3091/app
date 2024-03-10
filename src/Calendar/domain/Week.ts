@@ -16,7 +16,7 @@ export class Week<T> implements Retrievable<T[]> {
   }
 
   public retrieve(): T[] {
-    return this.days.flatMap(day => day.retrieve()).filter((data): data is T => data !== null);
+    return this.days.flatMap(day => day.retrieve()).filter((data): data is T => !!data);
   }
 
   private createDays() {

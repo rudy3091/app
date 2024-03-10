@@ -3,7 +3,7 @@ import { bootstrapCss } from '../../shared';
 import { Day } from '../domain';
 
 export class EditDayDetail<T> extends Component {
-  constructor(public day: Day<T>, private onSave: (day: Day<T>) => void) {
+  constructor(public day: Day<T>, private onSave: (value: string) => void) {
     super();
     this.save = this.save.bind(this);
   }
@@ -23,8 +23,7 @@ export class EditDayDetail<T> extends Component {
     const target = ev.target as HTMLElement;
     if (target.closest('.calendar-edit-save-button')) {
       const textarea = this.root().querySelector('textarea') as HTMLTextAreaElement;
-      this.day.data = textarea.value as any;
-      this.onSave(this.day);
+      this.onSave(textarea.value);
     }
   }
 
