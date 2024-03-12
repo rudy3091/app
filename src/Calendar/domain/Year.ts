@@ -19,3 +19,9 @@ export class Year<T> implements CalendarComponent<YearData<T>[]> {
     return this.number % 4 === 0 && (this.number % 100 !== 0 || this.number % 400 === 0);
   }
 }
+
+export class YearService {
+  public static isLeapYear(year: number): boolean {
+    return new Year(year).isLeapYear();
+  }
+}

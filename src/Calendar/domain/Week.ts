@@ -7,6 +7,8 @@ export class Week<T> implements CalendarComponent<WeekData<T>[]> {
   public days: CalendarComponent<T | null>[] = [];
 
   constructor(
+    public year: number,
+    public month: number,
     public readonly number: number,
     public readonly firstDay: DayOfWeek,
     public readonly firstDate: number,
@@ -28,7 +30,7 @@ export class Week<T> implements CalendarComponent<WeekData<T>[]> {
   private createDays(): CalendarComponent<T | null>[] {
     return new Array(7)
       .fill(0)
-      .map((_, index) => new Day<T>(this.firstDate + index, this.firstDay + index))
+      .map((_, index) => new Day<T>(this.year, this.month, this.firstDate + index, this.firstDay + index))
       .map(day => {
         const _day = day.clone();
         if (day.number <= 0) {

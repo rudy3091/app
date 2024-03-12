@@ -11,5 +11,8 @@ export enum DayOfWeek {
 }
 
 export interface CalendarComponent<T> extends Retrievable<T> {
+  year?: number;
+  month?: number;
+  week?: number;
   number: number;
 }

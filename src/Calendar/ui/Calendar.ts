@@ -23,7 +23,7 @@ export class Calendar extends Component {
   constructor(public root: Root, year: number, month: number) {
     super();
     this.year = new Year(year);
-    this.month = new Month(month, this.year.isLeapYear());
+    this.month = new Month(year, month);
     this.year.months.push(this.month);
     this.render = this.render.bind(this);
     this.alignChildren();
@@ -36,7 +36,15 @@ export class Calendar extends Component {
     return new Array(6).fill(0).map((_, index) => {
       const firstDayOfWeek = index === 0 ? firstDay : DayOfWeek.Sunday;
       const firstDateOfWeek = index * 7 - firstDay + 1;
-      return new Week<T>(index, firstDayOfWeek, firstDateOfWeek, lastDateOfMonth, formerMonthDays);
+      return new Week<T>(
+        this.year.number,
+        this.month.number,
+        index,
+        firstDayOfWeek,
+        firstDateOfWeek,
+        lastDateOfMonth,
+        formerMonthDays
+      );
     });
   }
 

@@ -1,5 +1,5 @@
 import { WeekData } from './Week';
-import { Year } from './Year';
+import { YearService } from './Year';
 import { CalendarComponent, DayOfWeek } from './shared';
 
 export type MonthData<T> = { week: number } & WeekData<T>;
@@ -7,7 +7,7 @@ export type MonthData<T> = { week: number } & WeekData<T>;
 export class Month<T> implements CalendarComponent<MonthData<T>[]> {
   public weeks: CalendarComponent<WeekData<T>[]>[] = [];
 
-  constructor(public readonly number: number, private isLeapYear: boolean) {}
+  constructor(public year: number, public readonly number: number) {}
 
   public retrieve(): MonthData<T>[] {
     return this.weeks.flatMap(week => {
@@ -19,7 +19,7 @@ export class Month<T> implements CalendarComponent<MonthData<T>[]> {
   public lastDate() {
     switch (this.number) {
       case 2:
-        return this.isLeapYear ? 29 : 28;
+        return YearService.isLeapYear(this.year) ? 29 : 28;
       case 4:
       case 6:
       case 9:
@@ -54,7 +54,7 @@ export class Month<T> implements CalendarComponent<MonthData<T>[]> {
 export class MonthService {
   public getFormerMonth<T>(month: Month<T>, year: number) {
     const formerMonth = month.number - 1 === 0 ? 12 : month.number - 1;
-    const formerYear = new Year<T>(month.number - 1 === 0 ? year - 1 : year);
-    return new Month<T>(formerMonth, formerYear.isLeapYear());
+    const formerYear = month.number - 1 === 0 ? year - 1 : year;
+    return new Month<T>(formerYear, formerMonth);
   }
 }
