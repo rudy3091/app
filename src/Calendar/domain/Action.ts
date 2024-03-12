@@ -7,22 +7,25 @@ export interface Action {
 
 export class NextMonth implements Action {
   public readonly label = 'Next';
+  private calendarStore = useCalendarStore();
   public do(): void {
-    console.log('Next month');
+    this.calendarStore.dispatch({ type: 'nextMonth' });
   }
 }
 
 export class PrevMonth implements Action {
   public readonly label = 'Prev';
+  private calendarStore = useCalendarStore();
   public do(): void {
-    console.log('Prev month');
+    this.calendarStore.dispatch({ type: 'previousMonth' });
   }
 }
 
 export class GotoToday implements Action {
   public readonly label = 'Today';
+  private calendarStore = useCalendarStore();
   public do(): void {
-    console.log('Today');
+    this.calendarStore.dispatch({ type: 'gotoToday' });
   }
 }
 

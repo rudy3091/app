@@ -19,7 +19,7 @@ export class Calendar extends Component {
     super();
     this.year = new Year(year);
     this.month = new Month(year, month);
-    this.year.months.push(this.month);
+    this.year.months[this.month.number - 1] = this.month;
     this.render = this.render.bind(this);
     this.alignChildren();
   }
@@ -44,6 +44,10 @@ export class Calendar extends Component {
   }
 
   public alignChildren(): void {
+    this.year = new Year(this.calendarStore.state.year);
+    this.month = new Month(this.calendarStore.state.year, this.calendarStore.state.month);
+    this.year.months[this.month.number - 1] = this.month;
+
     if (this.calendarStore.state.showListView) {
       this.calendarListView.scope = this.year;
       this.children = [this.calendarAction, this.calendarListView];
