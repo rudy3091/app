@@ -1,12 +1,11 @@
-import { Retrievable } from '../../shared/Retrievable';
-import { Week, WeekData } from './Week';
+import { WeekData } from './Week';
 import { Year } from './Year';
-import { DayOfWeek } from './shared';
+import { CalendarComponent, DayOfWeek } from './shared';
 
 export type MonthData<T> = { week: number } & WeekData<T>;
 
-export class Month<T> implements Retrievable<MonthData<T>[]> {
-  public weeks: Week<T>[] = [];
+export class Month<T> implements CalendarComponent<MonthData<T>[]> {
+  public weeks: CalendarComponent<WeekData<T>[]>[] = [];
 
   constructor(public readonly number: number, private isLeapYear: boolean) {}
 

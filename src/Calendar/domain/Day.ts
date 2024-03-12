@@ -1,8 +1,7 @@
 import { Clonable } from '../../shared/Clonable';
-import { Retrievable } from '../../shared/Retrievable';
-import { DayOfWeek } from './shared';
+import { CalendarComponent, DayOfWeek } from './shared';
 
-export class Day<T> implements Clonable<Day<T>>, Retrievable<T | null> {
+export class Day<T> implements Clonable<Day<T>>, CalendarComponent<T | null> {
   public data: T | null = null;
   public isCurrentMonth = true;
 

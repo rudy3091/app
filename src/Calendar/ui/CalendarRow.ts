@@ -1,6 +1,6 @@
 import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
-import { Week } from '../domain';
+import { Day, Week } from '../domain';
 import { CalendarCell } from './CalendarCell';
 
 export class CalendarRow<T> extends Component {
@@ -12,7 +12,10 @@ export class CalendarRow<T> extends Component {
   public alignChildren(): void {
     this.children = this.week.days.map(
       (day, index) =>
-        new CalendarCell<T>(() => this.root().querySelector(`.calendar-cell-slot:nth-child(${index + 1})`)!, day)
+        new CalendarCell<T>(
+          () => this.root().querySelector(`.calendar-cell-slot:nth-child(${index + 1})`)!,
+          day as Day<T>
+        )
     );
   }
 

@@ -1,3 +1,5 @@
+import { Retrievable } from '../../shared/Retrievable';
+
 export enum DayOfWeek {
   Sunday,
   Monday,
@@ -6,4 +8,8 @@ export enum DayOfWeek {
   Thursday,
   Friday,
   Saturday,
+}
+
+export interface CalendarComponent<T> extends Retrievable<T> {
+  number: number;
 }

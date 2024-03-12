@@ -1,11 +1,10 @@
-import { Retrievable } from '../../shared/Retrievable';
 import { Day } from './Day';
-import { DayOfWeek } from './shared';
+import { CalendarComponent, DayOfWeek } from './shared';
 
 export type WeekData<T> = { day: number; data: T };
 
-export class Week<T> implements Retrievable<WeekData<T>[]> {
-  public days: Day<T>[] = [];
+export class Week<T> implements CalendarComponent<WeekData<T>[]> {
+  public days: CalendarComponent<T | null>[] = [];
 
   constructor(
     public readonly number: number,
@@ -26,7 +25,7 @@ export class Week<T> implements Retrievable<WeekData<T>[]> {
       .filter((data): data is WeekData<T> => !!data.data);
   }
 
-  private createDays() {
+  private createDays(): CalendarComponent<T | null>[] {
     return new Array(7)
       .fill(0)
       .map((_, index) => new Day<T>(this.firstDate + index, this.firstDay + index))

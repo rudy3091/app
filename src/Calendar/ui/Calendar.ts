@@ -51,12 +51,15 @@ export class Calendar extends Component {
 
     this.children = this.month.weeks.map(
       (week, index) =>
-        new CalendarRow<T>(() => this.root().querySelector(`.calendar-row-slot:nth-child(${index + 1})`)!, week)
+        new CalendarRow<T>(
+          () => this.root().querySelector(`.calendar-row-slot:nth-child(${index + 1})`)!,
+          week as Week<T>
+        )
     );
     this.children.push(this.calendarAction);
   }
 
-  template() {
+  public template() {
     if (this.calendarStore.state.showListView) {
       return `
         <section class="calendar-section">

@@ -1,10 +1,10 @@
-import { Retrievable } from '../../shared/Retrievable';
-import { Month, MonthData } from './Month';
+import { CalendarComponent } from './shared';
+import { MonthData } from './Month';
 
 export type YearData<T> = { month: number } & MonthData<T>;
 
-export class Year<T> implements Retrievable<YearData<T>[]> {
-  public months: Month<T>[] = [];
+export class Year<T> implements CalendarComponent<YearData<T>[]> {
+  public months: CalendarComponent<MonthData<T>[]>[] = [];
 
   constructor(public readonly number: number) {}
 
