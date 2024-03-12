@@ -1,11 +1,11 @@
 import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
 import { Retrievable } from '../../shared/Retrievable';
-import { MonthData, WeekData, YearData } from '../domain';
+import { RetrievedData } from '../domain';
 import { CalendarListViewEntry } from './CalendarListViewEntry';
 
-export class CalendarListView<T> extends Component {
-  constructor(public root: Root, public scope?: Retrievable<Array<YearData<T> | MonthData<T> | WeekData<T>>>) {
+export class CalendarListView extends Component {
+  constructor(public root: Root, public scope?: Retrievable<RetrievedData<string>[]>) {
     super();
   }
 
@@ -13,7 +13,7 @@ export class CalendarListView<T> extends Component {
     const data = this.scope?.retrieve() ?? [];
     this.children = data.map(
       (item, index) =>
-        new CalendarListViewEntry<T>(
+        new CalendarListViewEntry(
           () => this.root().querySelector(`.calendar-list-entry-slot:nth-child(${index + 1})`)!,
           item
         )

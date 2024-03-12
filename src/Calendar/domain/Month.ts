@@ -1,19 +1,13 @@
-import { WeekData } from './Week';
 import { YearService } from './Year';
-import { CalendarComponent, DayOfWeek } from './shared';
+import { CalendarComponent, DayOfWeek, RetrievedData } from './shared';
 
-export type MonthData<T> = { week: number } & WeekData<T>;
-
-export class Month<T> implements CalendarComponent<MonthData<T>[]> {
-  public weeks: CalendarComponent<WeekData<T>[]>[] = [];
+export class Month implements CalendarComponent<RetrievedData<string>[]> {
+  public weeks: CalendarComponent<RetrievedData<string>[]>[] = [];
 
   constructor(public year: number, public readonly number: number) {}
 
-  public retrieve(): MonthData<T>[] {
-    return this.weeks.flatMap(week => {
-      const weekData = week.retrieve();
-      return weekData.map(data => ({ ...data, week: week.number }));
-    });
+  public retrieve(): RetrievedData<string>[] {
+    return this.weeks.flatMap(week => week.retrieve());
   }
 
   public lastDate() {
@@ -52,9 +46,9 @@ export class Month<T> implements CalendarComponent<MonthData<T>[]> {
 }
 
 export class MonthService {
-  public getFormerMonth<T>(month: Month<T>, year: number) {
+  public getFormerMonth(month: Month, year: number) {
     const formerMonth = month.number - 1 === 0 ? 12 : month.number - 1;
     const formerYear = month.number - 1 === 0 ? year - 1 : year;
-    return new Month<T>(formerYear, formerMonth);
+    return new Month(formerYear, formerMonth);
   }
 }

@@ -1,16 +1,15 @@
 import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
-import { MonthData, WeekData, YearData } from '../domain';
+import { RetrievedData } from '../domain';
 
-export class CalendarListViewEntry<T> extends Component {
-  constructor(public root: Root, public data: YearData<T> | MonthData<T> | WeekData<T>) {
+export class CalendarListViewEntry extends Component {
+  constructor(public root: Root, public data: RetrievedData<string>) {
     super();
   }
 
   private getLabel(): string {
-    if ('month' in this.data) return `${this.data.month}/${this.data.day}(week${this.data.week})`;
-    if ('week' in this.data) return `week${this.data.week} - ${this.data.day}`;
-    return this.data.day.toString();
+    const { year, month, week, day } = this.data;
+    return `${year ?? 'unknown'}/${month ?? 'unknown'}/${day ?? 'unknown'} (week${week ?? 'unknown'})`;
   }
 
   public template(): string {

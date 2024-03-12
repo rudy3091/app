@@ -4,17 +4,17 @@ import { bootstrapCss } from '../../shared';
 import { Day } from '../domain';
 import { EditDayDetail } from './EditDayDetail';
 
-export class CalendarCell<T> extends Component {
-  private editDayDetailModal: Modal<EditDayDetail<T>>;
+export class CalendarCell extends Component {
+  private editDayDetailModal: Modal<EditDayDetail>;
 
-  constructor(public root: Root, public day: Day<T>) {
+  constructor(public root: Root, public day: Day) {
     super();
     this.edit = this.edit.bind(this);
     this.editDayDetailModal = new Modal(
       'Edit Day',
       new EditDayDetail(this.day, value => {
         if (value === null) this.day.data = null;
-        else this.day.data = value as T;
+        else this.day.data = value;
         this.render();
         this.editDayDetailModal.close();
       })

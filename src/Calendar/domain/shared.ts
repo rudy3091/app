@@ -16,3 +16,11 @@ export interface CalendarComponent<T> extends Retrievable<T> {
   week?: number;
   number: number;
 }
+
+export interface RetrievedData<T> {
+  year?: number;
+  month?: number;
+  week?: number;
+  day?: number;
+  data: T;
+}

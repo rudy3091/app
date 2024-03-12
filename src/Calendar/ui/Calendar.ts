@@ -8,17 +8,12 @@ import { CalendarAction } from './CalendarAction';
 import { CalendarListView } from './CalendarListView';
 import { CalendarRow } from './CalendarRow';
 
-type T = {
-  date: Date;
-  data: string;
-};
-
 export class Calendar extends Component {
-  private year: Year<T>;
-  private month: Month<T>;
+  private year: Year;
+  private month: Month;
   private calendarStore = useCalendarStore();
   private calendarAction = new CalendarAction(() => this.root().querySelector('.calendar-action-slot')!);
-  private calendarListView = new CalendarListView<T>(() => this.root().querySelector('.calendar-list-slot')!);
+  private calendarListView = new CalendarListView(() => this.root().querySelector('.calendar-list-slot')!);
 
   constructor(public root: Root, year: number, month: number) {
     super();
@@ -29,14 +24,14 @@ export class Calendar extends Component {
     this.alignChildren();
   }
 
-  private constructWeeks(): Week<T>[] {
+  private constructWeeks(): Week[] {
     const firstDay = this.month.getFirstDay();
     const lastDateOfMonth = this.month.lastDate();
     const formerMonthDays = new MonthService().getFormerMonth(this.month, this.year.number).lastDate();
     return new Array(6).fill(0).map((_, index) => {
       const firstDayOfWeek = index === 0 ? firstDay : DayOfWeek.Sunday;
       const firstDateOfWeek = index * 7 - firstDay + 1;
-      return new Week<T>(
+      return new Week(
         this.year.number,
         this.month.number,
         index,
@@ -59,9 +54,9 @@ export class Calendar extends Component {
 
     this.children = this.month.weeks.map(
       (week, index) =>
-        new CalendarRow<T>(
+        new CalendarRow(
           () => this.root().querySelector(`.calendar-row-slot:nth-child(${index + 1})`)!,
-          week as Week<T>
+          week as Week
         )
     );
     this.children.push(this.calendarAction);

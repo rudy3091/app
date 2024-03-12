@@ -1,10 +1,8 @@
 import { Day } from './Day';
-import { CalendarComponent, DayOfWeek } from './shared';
+import { CalendarComponent, DayOfWeek, RetrievedData } from './shared';
 
-export type WeekData<T> = { day: number; data: T };
-
-export class Week<T> implements CalendarComponent<WeekData<T>[]> {
-  public days: CalendarComponent<T | null>[] = [];
+export class Week implements CalendarComponent<RetrievedData<string>[]> {
+  public days: CalendarComponent<RetrievedData<string | null>>[] = [];
 
   constructor(
     public year: number,
@@ -18,19 +16,16 @@ export class Week<T> implements CalendarComponent<WeekData<T>[]> {
     this.days = this.createDays();
   }
 
-  public retrieve(): WeekData<T>[] {
-    return this.days
-      .flatMap(day => {
-        const dayData = day.retrieve();
-        return { data: dayData, day: day.number };
-      })
-      .filter((data): data is WeekData<T> => !!data.data);
+  public retrieve(): RetrievedData<string>[] {
+    return this.days.flatMap(day => day.retrieve()).filter((data): data is RetrievedData<string> => !!data.data);
   }
 
-  private createDays(): CalendarComponent<T | null>[] {
+  private createDays(): CalendarComponent<RetrievedData<string | null>>[] {
     return new Array(7)
       .fill(0)
-      .map((_, index) => new Day<T>(this.year, this.month, this.firstDate + index, this.firstDay + index))
+      .map(
+        (_, index) => new Day(this.year, this.month, this.number, this.firstDate + index, this.firstDay + index)
+      )
       .map(day => {
         const _day = day.clone();
         if (day.number <= 0) {

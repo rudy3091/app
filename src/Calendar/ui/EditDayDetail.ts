@@ -2,8 +2,8 @@ import { Component } from '../../Component';
 import { bootstrapCss } from '../../shared';
 import { Day } from '../domain';
 
-export class EditDayDetail<T> extends Component {
-  constructor(public day: Day<T>, private onSave: (value: string) => void) {
+export class EditDayDetail extends Component {
+  constructor(public day: Day, private onSave: (value: string) => void) {
     super();
     this.save = this.save.bind(this);
   }

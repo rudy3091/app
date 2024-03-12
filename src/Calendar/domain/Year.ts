@@ -1,14 +1,11 @@
-import { CalendarComponent } from './shared';
-import { MonthData } from './Month';
+import { CalendarComponent, RetrievedData } from './shared';
 
-export type YearData<T> = { month: number } & MonthData<T>;
-
-export class Year<T> implements CalendarComponent<YearData<T>[]> {
-  public months: CalendarComponent<MonthData<T>[]>[] = [];
+export class Year implements CalendarComponent<RetrievedData<string>[]> {
+  public months: CalendarComponent<RetrievedData<string>[]>[] = [];
 
   constructor(public readonly number: number) {}
 
-  public retrieve(): YearData<T>[] {
+  public retrieve(): RetrievedData<string>[] {
     return this.months.flatMap(month => {
       const monthData = month.retrieve();
       return monthData.map(data => ({ ...data, month: month.number }));
