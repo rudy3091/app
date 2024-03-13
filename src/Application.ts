@@ -16,7 +16,7 @@ export class Application extends Component {
       new Date().getFullYear(),
       new Date().getMonth() + 1
     );
-    // this.children.push(this.kanbanBoard);
+    this.children.push(this.kanbanBoard);
     this.children.push(this.calendar);
   }
 
