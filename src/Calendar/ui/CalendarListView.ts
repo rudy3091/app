@@ -1,11 +1,10 @@
 import { Component, Root } from '../../Component';
 import { bootstrapCss } from '../../shared';
-import { Retrievable } from '../../shared/Retrievable';
-import { RetrievedData } from '../domain';
+import { CalendarComponent, RetrievedData } from '../domain';
 import { CalendarListViewEntry } from './CalendarListViewEntry';
 
 export class CalendarListView extends Component {
-  constructor(public root: Root, public scope?: Retrievable<RetrievedData<string>[]>) {
+  constructor(public root: Root, public scope?: CalendarComponent<RetrievedData<string>[]>) {
     super();
   }
 
