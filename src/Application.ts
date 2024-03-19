@@ -3,10 +3,12 @@ import { Component, Root, mount } from './Component.ts';
 import { KanbanBoard } from './Kanban/ui/index.ts';
 import { bootstrapCss } from './shared.ts';
 import { Calendar } from './Calendar/ui/Calendar.ts';
+import { DailyPlanner } from './DailyPlanner/ui/DailyPlanner.ts';
 
 export class Application extends Component {
   public kanbanBoard: KanbanBoard;
   public calendar: Calendar;
+  public dp: DailyPlanner;
 
   constructor(public root: Root) {
     super();
@@ -16,13 +18,17 @@ export class Application extends Component {
       new Date().getFullYear(),
       new Date().getMonth() + 1
     );
-    this.children.push(this.kanbanBoard);
-    this.children.push(this.calendar);
+    this.dp = new DailyPlanner(() => this.root().querySelector('.daily-planner-slot')!);
+  }
+
+  public alignChildren(): void {
+    this.children = [this.dp, this.kanbanBoard, this.calendar];
   }
 
   public template(): string {
     return `
       <div class="app">
+        <div class="daily-planner-slot">Daily planner is not available</div>
         <div class="calendar-slot">Calendar is not available</div>
         <div class="kanban-board-slot">Kanban board is not available</div>
       </div>
@@ -47,13 +53,8 @@ bootstrapCss`
   scroll-snap-align: center;
 }
 
-.kanban-board-slot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: scroll;
-}
-
+.daily-planner-slot,
+.kanban-board-slot,
 .calendar-slot {
   display: flex;
   justify-content: center;
